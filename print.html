@@ -735,16 +735,16 @@
             saveOrderToStorage(orderData);
 
             // Kirim ke WhatsApp
-            const message = `🚀 *PESANAN BARU PRINTSHOP*\n\n` +
-                `👤 Nama: ${orderData.customerName}\n` +
-                `📱 WhatsApp: ${orderData.whatsapp}\n\n` +
-                `📄 Produk: ${orderData.product}\n` +
-                `📝 Deskripsi: ${orderData.desc}\n` +
-                `🔢 Jumlah: ${orderData.quantity}\n` +
-                `💬 Keterangan: ${orderData.notes || '-'}\n` +
-                `💰 Total: ${orderData.total}\n\n` +
-                `⏰ Pesanan #${orderData.id}\n` +
-                `Mohon konfirmasi ya! 🙏`;
+            const message = `PESANAN BARU PRINT ZOKU\n\n` +
+                `Nama: ${orderData.customerName}\n` +
+                `WhatsApp: ${orderData.whatsapp}\n\n` +
+                `Produk: ${orderData.product}\n` +
+                `Deskripsi: ${orderData.desc}\n` +
+                `Jumlah: ${orderData.quantity}\n` +
+                `Keterangan: ${orderData.notes || '-'}\n` +
+                `Total: ${orderData.total}\n\n` +
+                `Pesanan #${orderData.id}\n` +
+                `Mohon konfirmasi ya! `;
 
             const whatsappUrl = `https://wa.me/6282164960213?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
