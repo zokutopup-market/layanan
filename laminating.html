@@ -725,17 +725,17 @@
 
             saveOrderToStorage(orderData);
 
-            const message = `🔥 *PESANAN LAMINASI BARU*\n\n` +
-                `👤 Nama: ${orderData.customerName}\n` +
-                `📱 WhatsApp: ${orderData.whatsapp}\n\n` +
-                `🛡️ Layanan: ${orderData.product}\n` +
-                `📝 Spesifikasi: ${orderData.desc}\n` +
-                `🔢 Jumlah: ${orderData.quantity}\n` +
-                `📏 Ukuran: ${orderData.size || '-'}\n` +
-                `💬 Catatan: ${orderData.notes || '-'}\n` +
-                `💰 Total: ${orderData.total}\n\n` +
-                `⏰ Pesanan #${orderData.id}\n` +
-                `Siap dikerjakan! ⚡`;
+            const message = `PESANAN LAMINASI BARU\n\n` +
+                `Nama: ${orderData.customerName}\n` +
+                `WhatsApp: ${orderData.whatsapp}\n\n` +
+                `Layanan: ${orderData.product}\n` +
+                `Spesifikasi: ${orderData.desc}\n` +
+                `Jumlah: ${orderData.quantity}\n` +
+                `Ukuran: ${orderData.size || '-'}\n` +
+                `Catatan: ${orderData.notes || '-'}\n` +
+                `Total: ${orderData.total}\n\n` +
+                `Pesanan #${orderData.id}\n` +
+                `Siap dikerjakan!`;
 
             const whatsappUrl = `https://wa.me/6282164960213?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
