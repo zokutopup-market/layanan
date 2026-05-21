@@ -210,6 +210,16 @@ setTimeout(() => {
     }
 }, 8000); // Max 8 detik
 
-function showHelp() {
-        showToast("Contact support: wa.me/6281234567890", "info");
-    }
+// function showHelp() {
+//         showToast("Contact support: wa.me/6281234567890", "info");
+//     }
+// Hero image button click handler - REDIRECT KE LINK
+const heroBtn = document.getElementById('heroImageBtn');
+if(heroBtn){
+    heroBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        // 🔗 TUlis LINK tujuan di sini:
+        window.open ("https://play.google.com/store/apps/details?id=com.miHoYo.GenshinImpact", "_blank"); 
+        // atau pakai window.open("https://example.com", "_blank") untuk tab baru
+    });
+}
