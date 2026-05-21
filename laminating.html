@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jasa Laminating - Zoku TopUp</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .navbar {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        /* .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        } */
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px; /* Tinggi fixed */
+        }
+
+        .logo h2 {
+            background: var(--primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+
+        .logo-img {
+            mix-blend-mode: multiply;
+            height: 60px; /* Atur tinggi logo sesuai kebutuhan */
+            width: auto;  /* Menjaga proporsi logo */
+            /* Pastikan tidak ada background-color di sini */
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #e74c3c;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .catalog {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .catalog h2 {
+            margin-bottom: 2rem;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .category-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 0.5rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            background: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover, .product-card.selected {
+            border-color: #667eea;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .product-card.selected::before {
+            content: '✓';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 25px;
+            height: 25px;
+            background: #28a745;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .product-icon {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .product-name {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .product-desc {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .order-summary {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .summary-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .customer-info {
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .quantity-group {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .qty-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #e9ecef;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qty-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .qty-input {
+            width: 70px;
+            text-align: center;
+        }
+
+        .total-section {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .total-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .total-final {
+            font-size: 1.8rem;
+            font-weight: bold;
+            border-top: 2px solid rgba(255,255,255,0.3);
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .no-product {
+            text-align: center;
+            color: #999;
+            padding: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .preview-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border: 2px dashed #dee2e6;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .preview-section:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .preview-section.has-file {
+            border-style: solid;
+            background: white;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            display: none;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .order-summary {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+               <div class="logo">
+                    <h2> <img src="zoku rev.png" alt="Logo" class="logo-img"></h2>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a onclick="history.back()" class="nav-link">Back</a>
+                </li>
+                <li class="nav-item">
+                    <a href="laminating.html" class="nav-link active">Laminating</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Kontak</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="main-content">
+            <!-- Product Catalog -->
+            <div class="catalog">
+                <h2>
+                    <i class="fas fa-layer-group"></i>
+                    Pilih Layanan Laminating
+                </h2>
+
+                <div class="category-tabs">
+                    <button class="tab-btn active" data-category="laminasi">Laminasi</button>
+                    <button class="tab-btn" data-category="finishing">Finishing</button>
+                    <button class="tab-btn" data-category="potong">Potong Laser</button>
+                    <button class="tab-btn" data-category="lipat">Lipat & Jahit</button>
+                    <button class="tab-btn" data-category="id-card">ID Card</button>
+                    <button class="tab-btn" data-category="promo">Promo</button>
+                </div>
+
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products akan dimuat via JS -->
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <div class="summary-header">
+                    <i class="fas fa-receipt"></i>
+                    <h3>Ringkasan Pesanan</h3>
+                </div>
+
+                <div class="customer-info">
+                    <div class="form-group">
+                        <label>Nama Lengkap <span style="color: red;">*</span></label>
+                        <input type="text" id="customerName" placeholder="Masukkan nama Anda" required>
+                    </div>
+                    <div class="form-group">
+                        <label>No. WhatsApp <span style="color: red;">*</span></label>
+                        <input type="tel" id="whatsapp" placeholder="08xxxxxxxxx" required>
+                    </div>
+                </div>
+
+                <div id="selectedProductInfo" style="display: none;">
+                    <div class="form-group">
+                        <label>Produk Terpilih</label>
+                        <div style="padding: 1rem; background: #f8f9fa; border-radius: 10px;">
+                            <strong id="productName"></strong><br>
+                            <small id="productDesc"></small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jumlah <span style="color: red;">*</span></label>
+                        <div class="quantity-group">
+                            <button type="button" class="qty-btn" id="qtyMinus">-</button>
+                            <input type="number" class="qty-input" id="quantity" value="1" min="1">
+                            <button type="button" class="qty-btn" id="qtyPlus">+</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ukuran (cm) <span style="color: red;">*</span></label>
+                        <input type="text" id="size" placeholder="Contoh: 21x29.7 (A4) atau 30x40">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Keterangan</label>
+                        <textarea rows="3" id="notes" placeholder="Jenis kertas, jumlah lembar, dll..."></textarea>
+                    </div>
+                </div>
+
+                <div class="preview-section" id="previewSection">
+                    <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: #adb5bd; margin-bottom: 1rem;"></i>
+                    <p>Upload File (PDF/JPG/PNG)</p>
+                    <small>Maksimal 50MB</small>
+                    <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
+                </div>
+
+                <div class="total-section" id="totalSection" style="display: none;">
+                    <div class="total-item">
+                        <span>Harga Satuan</span>
+                        <span id="pricePerUnit">Rp 0</span>
+                    </div>
+                    <div class="total-item">
+                        <span>Jumlah</span>
+                        <span id="qtyDisplay">0</span>
+                    </div>
+                    <div class="total-final">
+                        Total Bayar: <span id="totalAmount">Rp 0</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="orderBtn" disabled>
+                    <i class="fas fa-whatsapp"></i> Pesan via WhatsApp
+                </button>
+
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i> Pesanan berhasil disimpan ke sistem!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Produk Laminating & Finishing
+        const productsData = {
+            laminasi: [
+                { id: 'laminasi-glossy-a4', name: 'Laminasi Glossy A4', desc: '1 sisi, 100-125mic', price: 5000, icon: 'fas fa-layer-group' },
+                { id: 'laminasi-glossy-a3', name: 'Laminasi Glossy A3', desc: '1 sisi, 100-125mic', price: 8000, icon: 'fas fa-layer-group' },
+                { id: 'laminasi-doff-a4', name: 'Laminasi Doff A4', desc: '1 sisi, 100-125mic', price: 6000, icon: 'fas fa-layer-group' },
+                { id: 'laminasi-doff-a3', name: 'Laminasi Doff A3', desc: '1 sisi, 100-125mic', price: 9000, icon: 'fas fa-layer-group' },
+                { id: 'laminasi-2sisi-a4', name: 'Laminasi 2 Sisi A4', desc: 'Depan-belakang', price: 8000, icon: 'fas fa-layers' },
+                { id: 'laminasi-jumbo', name: 'Laminasi Jumbo 50x70cm', desc: 'Glossy/Doff', price: 25000, icon: 'fas fa-layer-group' }
+            ],
+            finishing: [
+                { id: 'emboss', name: 'Hotprint/Emboss', desc: '1 sisi A4', price: 3000, icon: 'fas fa-stamp' },
+                { id: 'perforasi', name: 'Perforasi', desc: 'Garis potong A4', price: 2000, icon: 'fas fa-cut' },
+                { id: 'rounding', name: 'Sudut Rounding', desc: '4 sudut A4', price: 2500, icon: 'fas fa-circle' },
+                { id: 'pell-off', name: 'Stiker Pell Off', desc: 'A4 glossy', price: 7000, icon: 'fas fa-sticky-note' },
+                { id: 'uv-spot', name: 'UV Spot 10x10cm', desc: 'Laminasi + UV', price: 15000, icon: 'fas fa-magic' }
+            ],
+            potong: [
+                { id: 'laser-a4', name: 'Potong Laser A4', desc: 'Kayu/MDF 3mm', price: 35000, icon: 'fas fa-cut' },
+                { id: 'cnc-akrilik', name: 'CNC Akrilik 3mm', desc: 'Ukuran custom', price: 45000, icon: 'fas fa-industry' },
+                { id: 'potong-stiker', name: 'Potong Stiker Kontur', desc: 'Vinyl custom', price: 12000, icon: 'fas fa-scissors' },
+                { id: 'diecut-kraft', name: 'Diecut Kraft Paper', desc: 'A5 custom shape', price: 8000, icon: 'fas fa-cut' }
+            ],
+            'lipat': [
+                { id: 'lipat-brochure', name: 'Lipat Brosur A4', desc: '2 lipatan', price: 1500, icon: 'fas fa-file-folded' },
+                { id: 'jahit-saddle', name: 'Jahit Kawat A4', desc: '16 halaman', price: 5000, icon: 'fas fa-book-open' },
+                { id: 'lipat-map', name: 'Lipat Map A3', desc: 'Map folder', price: 3000, icon: 'fas fa-folder-open' },
+                { id: 'origami', name: 'Origami Custom', desc: 'Lipatan khusus', price: 10000, icon: 'fas fa-cube' }
+            ],
+            'id-card': [
+                { id: 'card-pvc1', name: 'ID Card PVC', desc: 'Standard kartu ATM', price: 10000, icon: 'fas fa-id-card' }
+            ],
+            promo: [
+                { id: 'laminasi-combo', name: 'Combo Laminasi 50pcs', desc: 'A4 Glossy Diskon 15%', price: 200000, icon: 'fas fa-percent' },
+                { id: 'finishing-id', name: 'Paket ID Card', desc: 'Laminasi + Rounding', price: 12000, icon: 'fas fa-id-card' },
+                { id: 'finishing-id10pcs', name: 'Paket ID Card 10pcs', desc: 'Laminasi + Rounding 10pcs', price: 12000, icon: 'fas fa-id-card' },
+                { id: 'brosur-paket', name: 'Paket Brosur', desc: 'Lipat + Laminasi A4', price: 25000, icon: 'fas fa-gift' }
+            ]
+        };
+
+        let selectedProduct = null;
+        let currentCategory = 'laminasi';
+
+        // Initialize
+        function init() {
+            renderProducts('laminasi');
+            setupEventListeners();
+            calculateTotal();
+        }
+
+        // Render Products
+        function renderProducts(category) {
+            const grid = document.getElementById('productsGrid');
+            const products = productsData[category] || [];
+            
+            grid.innerHTML = products.map(product => `
+                <div class="product-card ${selectedProduct?.id === product.id ? 'selected' : ''}" 
+                     data-product='${JSON.stringify(product)}'>
+                    <div class="product-icon">
+                        <i class="${product.icon}"></i>
+                    </div>
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-desc">${product.desc}</div>
+                    <div style="font-weight: bold; color: #667eea; font-size: 1.1rem; margin-top: 0.5rem;">
+                        Rp ${formatRupiah(product.price)}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Event Listeners
+        function setupEventListeners() {
+            // Category Tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    currentCategory = e.target.dataset.category;
+                    renderProducts(currentCategory);
+                });
+            });
+
+            // Product Selection
+            document.getElementById('productsGrid').addEventListener('click', (e) => {
+                if (e.target.closest('.product-card')) {
+                    const productCard = e.target.closest('.product-card');
+                    const product = JSON.parse(productCard.dataset.product);
+                    selectProduct(product);
+                }
+            });
+
+            // Quantity Controls
+            document.getElementById('qtyMinus').addEventListener('click', () => {
+                const qty = parseInt(document.getElementById('quantity').value) || 1;
+                if (qty > 1) document.getElementById('quantity').value = qty - 1;
+                calculateTotal();
+            });
+
+            document.getElementById('qtyPlus').addEventListener('click', () => {
+                const qty = parseInt(document.getElementById('quantity').value) || 1;
+                document.getElementById('quantity').value = qty + 1;
+                calculateTotal();
+            });
+
+            document.getElementById('quantity').addEventListener('input', calculateTotal);
+
+            // File Upload
+            const previewSection = document.getElementById('previewSection');
+            const fileInput = document.getElementById('fileInput');
+
+            previewSection.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', handleFileUpload);
+
+            // Order Button
+            document.getElementById('orderBtn').addEventListener('click', placeOrder);
+
+            // Form validation real-time
+            document.getElementById('customerName').addEventListener('input', validateForm);
+            document.getElementById('whatsapp').addEventListener('input', validateForm);
+        }
+
+        // Select Product
+        function selectProduct(product) {
+            selectedProduct = product;
+            
+            // Update UI
+            document.getElementById('productName').textContent = product.name;
+            document.getElementById('productDesc').textContent = product.desc;
+            document.getElementById('selectedProductInfo').style.display = 'block';
+            
+            // Update product cards
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.classList.toggle('selected', JSON.parse(card.dataset.product).id === product.id);
+            });
+            
+            document.getElementById('quantity').value = 1;
+            calculateTotal();
+            validateForm();
+        }
+
+        // Calculate Total
+        function calculateTotal() {
+            if (!selectedProduct) {
+                document.getElementById('totalSection').style.display = 'none';
+                document.getElementById('orderBtn').disabled = true;
+                return;
+            }
+
+            const pricePerUnit = selectedProduct.price;
+            const quantity = parseInt(document.getElementById('quantity').value) || 1;
+            const total = pricePerUnit * quantity;
+
+            document.getElementById('pricePerUnit').textContent = formatRupiah(pricePerUnit);
+            document.getElementById('qtyDisplay').textContent = quantity;
+            document.getElementById('totalAmount').textContent = formatRupiah(total);
+            
+            document.getElementById('totalSection').style.display = 'block';
+            validateForm();
+        }
+
+        // Validate Form
+        function validateForm() {
+            const name = document.getElementById('customerName').value.trim();
+            const whatsapp = document.getElementById('whatsapp').value.trim();
+            const hasProduct = selectedProduct !== null;
+
+            document.getElementById('orderBtn').disabled = !(name && whatsapp && hasProduct);
+        }
+
+        // File Upload Handler
+        function handleFileUpload(e) {
+            const file = e.target.files[0];
+            const previewSection = document.getElementById('previewSection');
+            
+            if (file && file.size < 50 * 1024 * 1024) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewSection.innerHTML = `
+                        <img src="${e.target.result}" style="max-width: 100%; max-height: 200px; object-fit: contain; border-radius: 8px;">
+                        <p style="margin-top: 1rem; color: #28a745;"><i class="fas fa-check"></i> File berhasil diupload</p>
+                        <small>${file.name} (${formatFileSize(file.size)})</small>
+                        <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
+                    `;
+                    previewSection.classList.add('has-file');
+                };
+                reader.readAsDataURL(file);
+            } else if (file) {
+                alert('❌ File terlalu besar! Maksimal 50MB');
+                e.target.value = '';
+            }
+        }
+
+        // PLACE ORDER
+        function placeOrder() {
+            if (!selectedProduct) return;
+
+            const orderData = {
+                id: Date.now(),
+                customerName: document.getElementById('customerName').value.trim(),
+                whatsapp: document.getElementById('whatsapp').value.trim(),
+                product: selectedProduct.name,
+                desc: document.getElementById('productDesc').textContent,
+                quantity: document.getElementById('quantity').value,
+                size: document.getElementById('size').value.trim(),
+                notes: document.getElementById('notes').value,
+                total: document.getElementById('totalAmount').textContent,
+                status: 'new',
+                timestamp: new Date().toISOString()
+            };
+
+            saveOrderToStorage(orderData);
+
+            const message = `🔥 *PESANAN LAMINASI BARU*\n\n` +
+                `👤 Nama: ${orderData.customerName}\n` +
+                `📱 WhatsApp: ${orderData.whatsapp}\n\n` +
+                `🛡️ Layanan: ${orderData.product}\n` +
+                `📝 Spesifikasi: ${orderData.desc}\n` +
+                `🔢 Jumlah: ${orderData.quantity}\n` +
+                `📏 Ukuran: ${orderData.size || '-'}\n` +
+                `💬 Catatan: ${orderData.notes || '-'}\n` +
+                `💰 Total: ${orderData.total}\n\n` +
+                `⏰ Pesanan #${orderData.id}\n` +
+                `Siap dikerjakan! ⚡`;
+
+            const whatsappUrl = `https://wa.me/6282164960213?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+            
+            showSuccess();
+            resetForm();
+        }
+
+        function saveOrderToStorage(order) {
+            const orders = JSON.parse(localStorage.getItem('laminasi_orders')) || [];
+            orders.unshift(order);
+            localStorage.setItem('laminasi_orders', JSON.stringify(orders));
+        }
+
+        function showSuccess() {
+            const successMsg = document.getElementById('successMessage');
+            successMsg.style.display = 'block';
+            successMsg.scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 5000);
+        }
+
+        function resetForm() {
+            document.getElementById('customerName').value = '';
+            document.getElementById('whatsapp').value = '';
+            document.getElementById('quantity').value = 1;
+            document.getElementById('size').value = '';
+            document.getElementById('notes').value = '';
+            document.getElementById('fileInput').value = '';
+            
+            const previewSection = document.getElementById('previewSection');
+            previewSection.innerHTML = `
+                <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: #adb5bd; margin-bottom: 1rem;"></i>
+                <p>Upload File (PDF/JPG/PNG)</p>
+                <small>Maksimal 50MB</small>
+                <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
+            `;
+            previewSection.classList.remove('has-file');
+            
+            selectedProduct = null;
+            document.getElementById('selectedProductInfo').style.display = 'none';
+            document.getElementById('totalSection').style.display = 'none';
+            document.getElementById('orderBtn').disabled = true;
+        }
+
+        function formatRupiah(amount) {
+            return new Intl.NumberFormat('id-ID').format(amount);
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        init();
+    </script>
+</body>
+</html>
