@@ -337,7 +337,7 @@ body {
     line-height: 1.2;
     text-shadow: 0 0 8px #6f00ff;
     /* Efek text border */
-    color: #cfcfcf94;
+    color: black;
     -webkit-text-stroke: 2px #6f00ff;
     text-stroke: 2px #6f00ff;
 }
