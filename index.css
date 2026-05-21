@@ -335,11 +335,11 @@ body {
     font-weight: 800;
     margin-bottom: 1.5rem;
     line-height: 1.2;
-    text-shadow: 0 0 8px #6f00ff;
+    /* text-shadow: 0 0 8px #6f00ff; */
     /* Efek text border */
-    color: black;
-    -webkit-text-stroke: 2px #6f00ff;
-    text-stroke: 2px #6f00ff;
+    color: #1e293b;
+    /* -webkit-text-stroke: 2px #6f00ff;
+    text-stroke: 2px #6f00ff; */
 }
 
 /* Untuk teks "Digital Experience" yang berbeda */
