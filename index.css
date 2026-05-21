@@ -31,6 +31,7 @@ body {
 
 .container {
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     padding: 0 20px;
 }
@@ -328,12 +329,37 @@ body {
     z-index: 2;
 }
 
+/* Hero Title dengan TEXT BORDER style balok */
 .hero-title {
     font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 800;
-    color:rgb(109, 109, 109);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    text-shadow: 0 0 8px #6f00ff;
+    /* Efek text border */
+    color: #cfcfcf94;
+    -webkit-text-stroke: 2px #6f00ff;
+    text-stroke: 2px #6f00ff;
+}
+
+/* Untuk teks "Digital Experience" yang berbeda */
+.hero-gradient {
+    background: linear-gradient(135deg, #2563eb, );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-stroke: 1px #6f00ff;
+    text-stroke: 1px #6f00ff;
+}
+
+/* .hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    color:rgb(0, 0, 0);
     margin-bottom: 1.5rem;
     line-height: 1.1;
+    border-color: #2563eb 9 9 12px;
+    
 }
 
 .hero-gradient {
@@ -341,7 +367,7 @@ body {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-}
+} */
 
 .gradient-text {
     background: linear-gradient(45deg, #ffffff, #e0e7ff);
@@ -484,6 +510,39 @@ body {
         border-radius: 20px;
     }
 }
+
+@media (max-width: 480px) {
+    .stats .stat h3 { font-size: 1.5rem; }
+    .float-help { width: 45px; height: 45px; }
+}
+
+/* KLIKABLE BUTTON GAMBAR - style retain, full clickable */
+.clickable-photo-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    transition: transform 0.2s ease;
+    border-radius: 32px;
+    outline: none;
+}
+
+.clickable-photo-btn:active {
+    transform: scale(0.98);
+}
+
+.photo-img {
+    /* ... semua style lama tetap sama ... */
+    pointer-events: none; /* ← BARIS INI DITAMBAH: event klik ditangani button, bukan gambar */
+}
+
+.clickable-photo-btn:hover .photo-img {
+    transform: scale(1.02) rotate(2deg);
+    box-shadow: 0 50px 120px rgba(0,0,0,0.4);
+}
+
 section {
     padding: 120px 0;
 }
